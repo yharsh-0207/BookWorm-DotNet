@@ -4,6 +4,7 @@ using BookWorm_DotNet.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookWorm_DotNet.Migrations
 {
     [DbContext(typeof(BookwormContext))]
-    partial class BookwormContextModelSnapshot : ModelSnapshot
+    [Migration("20240223051407_BK")]
+    partial class BK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,7 +87,7 @@ namespace BookWorm_DotNet.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<double?>("TotalEarning")
+                    b.Property<double>("TotalEarning")
                         .HasColumnType("float");
 
                     b.HasKey("BeneficiaryId")
@@ -165,7 +168,7 @@ namespace BookWorm_DotNet.Migrations
                     b.Property<double>("BuyAmount")
                         .HasColumnType("float");
 
-                    b.Property<long?>("CustomerId")
+                    b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
 
                     b.Property<double>("InvoiceAmount")
@@ -206,7 +209,7 @@ namespace BookWorm_DotNet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("InvoiceDetailId"));
 
-                    b.Property<double>("BuyAmount")
+                    b.Property<double>("BasePrice")
                         .HasColumnType("float");
 
                     b.Property<long>("InvoiceId")
@@ -218,11 +221,11 @@ namespace BookWorm_DotNet.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<double>("RentAmount")
-                        .HasColumnType("float");
-
                     b.Property<int>("RentDays")
                         .HasColumnType("int");
+
+                    b.Property<double>("SalePrice")
+                        .HasColumnType("float");
 
                     b.Property<string>("TransactionType")
                         .IsRequired()
@@ -230,6 +233,8 @@ namespace BookWorm_DotNet.Migrations
 
                     b.HasKey("InvoiceDetailId")
                         .HasName("pk_invoice_detail");
+
+                    b.HasIndex("InvoiceId");
 
                     b.HasIndex("ProductId");
 
@@ -426,13 +431,13 @@ namespace BookWorm_DotNet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ProductBeneficiaryId"));
 
-                    b.Property<long?>("BeneficiaryId")
+                    b.Property<long>("BeneficiaryId")
                         .HasColumnType("bigint");
 
-                    b.Property<double?>("BeneficiaryPercentage")
+                    b.Property<double>("BeneficiaryPercentage")
                         .HasColumnType("float");
 
-                    b.Property<long?>("ProductId")
+                    b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
                     b.HasKey("ProductBeneficiaryId")
@@ -531,18 +536,32 @@ namespace BookWorm_DotNet.Migrations
 
             modelBuilder.Entity("BookWorm_DotNet.Models.Invoice", b =>
                 {
-                    b.HasOne("BookWorm_DotNet.Models.Customer", null)
+                    b.HasOne("BookWorm_DotNet.Models.Customer", "Customer")
                         .WithMany("Invoices")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("BookWorm_DotNet.Models.InvoiceDetail", b =>
                 {
-                    b.HasOne("BookWorm_DotNet.Models.Product", null)
+                    b.HasOne("BookWorm_DotNet.Models.Invoice", "Invoice")
+                        .WithMany("InvoiceDetails")
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookWorm_DotNet.Models.Product", "Product")
                         .WithMany("InvoiceDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BookWorm_DotNet.Models.Product", b =>
@@ -602,11 +621,15 @@ namespace BookWorm_DotNet.Migrations
                 {
                     b.HasOne("BookWorm_DotNet.Models.Beneficiary", "Beneficiary")
                         .WithMany("ProductBeneficiaries")
-                        .HasForeignKey("BeneficiaryId");
+                        .HasForeignKey("BeneficiaryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BookWorm_DotNet.Models.Product", "Product")
                         .WithMany("ProductBeneficiaries")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Beneficiary");
 
@@ -642,6 +665,11 @@ namespace BookWorm_DotNet.Migrations
             modelBuilder.Entity("BookWorm_DotNet.Models.Genre", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("BookWorm_DotNet.Models.Invoice", b =>
+                {
+                    b.Navigation("InvoiceDetails");
                 });
 
             modelBuilder.Entity("BookWorm_DotNet.Models.Language", b =>
