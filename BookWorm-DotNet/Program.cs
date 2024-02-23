@@ -1,5 +1,5 @@
+using BookWorm_DotNet.DAL;
 using BookWorm_DotNet.Controllers;
-using BookWorm_DotNet.Dal;
 using BookWorm_DotNet.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +15,9 @@ namespace BookWorm_DotNet
 
 
             builder.Services.AddControllers();
+
+
+            builder.Services.AddTransient<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IMyShelfRepository, MyShelfRepository>();
             builder.Services.AddScoped<IRoyaltyCalculationRepository, RoyaltyCalculationRepository>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
