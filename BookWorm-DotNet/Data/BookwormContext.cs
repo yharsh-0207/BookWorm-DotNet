@@ -45,6 +45,7 @@ public partial class BookwormContext : DbContext
 
     public virtual DbSet<RoyaltyCalculation> RoyaltyCalculations { get; set; }
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Attribute>(entity =>

@@ -7,7 +7,7 @@ public partial class MyShelf
 {
     public long ShelfId { get; set; }
 
-    public int CustomerId { get; set; }
+    public long CustomerId { get; set; }
 
     public bool IsActive { get; set; }
 
