@@ -1,7 +1,7 @@
 ﻿using BookWorm_DotNet.Data;
 using BookWorm_DotNet.Models;
 
-namespace BookWorm_DotNet.Controllers
+namespace BookWorm_DotNet.DAL
 {
     public class RoyaltyCalculationRepository : IRoyaltyCalculationRepository
     {

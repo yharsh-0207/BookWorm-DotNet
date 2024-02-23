@@ -2,7 +2,7 @@
 using BookWorm_DotNet.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookWorm_DotNet.Dal
+namespace BookWorm_DotNet.DAL
 {
     public class CustomerRepository : ICustomerRepository
     {
