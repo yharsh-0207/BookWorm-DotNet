@@ -1,4 +1,6 @@
+using BookWorm_DotNet.DAL;
 using BookWorm_DotNet.Data;
+using BookWorm_DotNet.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookWorm_DotNet
@@ -15,6 +17,8 @@ namespace BookWorm_DotNet
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+            builder.Services.AddScoped<IInvoiceDetailRepository, InvoiceDetailRepository>();
             builder.Services.AddDbContext<BookwormContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

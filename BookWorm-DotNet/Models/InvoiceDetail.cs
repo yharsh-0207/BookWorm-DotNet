@@ -7,21 +7,17 @@ public partial class InvoiceDetail
 {
     public long InvoiceDetailId { get; set; }
 
-    public double BasePrice { get; set; }
+    public double BuyAmount { get; set; }
 
     public int RentDays { get; set; }
 
-    public double SalePrice { get; set; }
+    public double RentAmount { get; set; }
 
-    public string TransactionType { get; set; } = null!;
+    public string TransactionType { get; set; }
 
     public long InvoiceId { get; set; }
 
-    public long ProductId { get; set; }
+    public long? ProductId { get; set; }
 
     public int Quantity { get; set; }
-
-    public virtual Invoice Invoice { get; set; }
-
-    public virtual Product Product { get; set; }
 }

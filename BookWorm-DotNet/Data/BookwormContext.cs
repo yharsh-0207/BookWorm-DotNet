@@ -114,20 +114,11 @@ public partial class BookwormContext : DbContext
                 .HasMaxLength(255);
             entity.Property(e => e.TransactionType)
                 .HasMaxLength(255);
-
-            entity.HasOne(d => d.Customer).WithMany(p => p.Invoices)
-                .HasForeignKey(d => d.CustomerId);
         });
 
         modelBuilder.Entity<InvoiceDetail>(entity =>
         {
             entity.HasKey(e => e.InvoiceDetailId).HasName("pk_invoice_detail");
-
-            entity.HasOne(d => d.Invoice).WithMany(p => p.InvoiceDetails)
-                .HasForeignKey(d => d.InvoiceId);
-
-            entity.HasOne(d => d.Product).WithMany(p => p.InvoiceDetails)
-                .HasForeignKey(d => d.ProductId);
         });
 
         modelBuilder.Entity<Language>(entity =>
