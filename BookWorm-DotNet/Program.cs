@@ -1,3 +1,4 @@
+using BookWorm_DotNet.Dal;
 using BookWorm_DotNet.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,10 +12,13 @@ namespace BookWorm_DotNet
 
             // Add services to the container.
 
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddDbContext<BookwormContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
