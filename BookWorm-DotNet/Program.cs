@@ -1,6 +1,7 @@
 using BookWorm_DotNet.DAL;
 using BookWorm_DotNet.Controllers;
 using BookWorm_DotNet.Data;
+using BookWorm_DotNet.Services;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -28,6 +29,8 @@ namespace BookWorm_DotNet
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+            builder.Services.AddScoped<IInvoiceDetailRepository, InvoiceDetailRepository>();
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddDbContext<BookwormContext>(options =>
             {

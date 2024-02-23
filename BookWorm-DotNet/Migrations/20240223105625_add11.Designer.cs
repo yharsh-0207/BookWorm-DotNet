@@ -4,6 +4,7 @@ using BookWorm_DotNet.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookWorm_DotNet.Migrations
 {
     [DbContext(typeof(BookwormContext))]
-    partial class BookwormContextModelSnapshot : ModelSnapshot
+    [Migration("20240223105625_add11")]
+    partial class add11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,7 +87,7 @@ namespace BookWorm_DotNet.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<double?>("TotalEarning")
+                    b.Property<double>("TotalEarning")
                         .HasColumnType("float");
 
                     b.HasKey("BeneficiaryId")
@@ -426,13 +429,13 @@ namespace BookWorm_DotNet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ProductBeneficiaryId"));
 
-                    b.Property<long?>("BeneficiaryId")
+                    b.Property<long>("BeneficiaryId")
                         .HasColumnType("bigint");
 
-                    b.Property<double?>("BeneficiaryPercentage")
+                    b.Property<double>("BeneficiaryPercentage")
                         .HasColumnType("float");
 
-                    b.Property<long?>("ProductId")
+                    b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
                     b.HasKey("ProductBeneficiaryId")
@@ -602,11 +605,15 @@ namespace BookWorm_DotNet.Migrations
                 {
                     b.HasOne("BookWorm_DotNet.Models.Beneficiary", "Beneficiary")
                         .WithMany("ProductBeneficiaries")
-                        .HasForeignKey("BeneficiaryId");
+                        .HasForeignKey("BeneficiaryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BookWorm_DotNet.Models.Product", "Product")
                         .WithMany("ProductBeneficiaries")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Beneficiary");
 
