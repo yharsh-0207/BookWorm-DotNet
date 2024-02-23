@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookWorm_DotNet.Models;
 
@@ -21,5 +22,5 @@ public partial class Customer
 
     public string? PhoneNo { get; set; }
 
-    public ICollection<Invoice> Invoices { get; set; }
+    public ICollection<Invoice>? Invoices { get; set; }
 }
