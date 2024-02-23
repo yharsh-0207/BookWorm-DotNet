@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookWorm_DotNet.Migrations
 {
     [DbContext(typeof(BookwormContext))]
-    [Migration("20240222122025_InitialCreate")]
+    [Migration("20240223103546_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -87,7 +87,7 @@ namespace BookWorm_DotNet.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<double>("TotalEarning")
+                    b.Property<double?>("TotalEarning")
                         .HasColumnType("float");
 
                     b.HasKey("BeneficiaryId")
@@ -431,13 +431,13 @@ namespace BookWorm_DotNet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ProductBeneficiaryId"));
 
-                    b.Property<long>("BeneficiaryId")
+                    b.Property<long?>("BeneficiaryId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("BeneficiaryPercentage")
+                    b.Property<double?>("BeneficiaryPercentage")
                         .HasColumnType("float");
 
-                    b.Property<long>("ProductId")
+                    b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
                     b.HasKey("ProductBeneficiaryId")
@@ -621,15 +621,11 @@ namespace BookWorm_DotNet.Migrations
                 {
                     b.HasOne("BookWorm_DotNet.Models.Beneficiary", "Beneficiary")
                         .WithMany("ProductBeneficiaries")
-                        .HasForeignKey("BeneficiaryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BeneficiaryId");
 
                     b.HasOne("BookWorm_DotNet.Models.Product", "Product")
                         .WithMany("ProductBeneficiaries")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Beneficiary");
 

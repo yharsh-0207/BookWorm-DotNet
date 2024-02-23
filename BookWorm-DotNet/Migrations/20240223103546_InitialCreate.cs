@@ -39,7 +39,7 @@ namespace BookWorm_DotNet.Migrations
                     BeneficiaryIFSC = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     BeneficiaryName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     BeneficiaryPAN = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    TotalEarning = table.Column<double>(type: "float", nullable: false)
+                    TotalEarning = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -288,9 +288,9 @@ namespace BookWorm_DotNet.Migrations
                 {
                     ProductBeneficiaryId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BeneficiaryId = table.Column<long>(type: "bigint", nullable: false),
-                    BeneficiaryPercentage = table.Column<double>(type: "float", nullable: false),
-                    ProductId = table.Column<long>(type: "bigint", nullable: false)
+                    BeneficiaryId = table.Column<long>(type: "bigint", nullable: true),
+                    BeneficiaryPercentage = table.Column<double>(type: "float", nullable: true),
+                    ProductId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -299,14 +299,12 @@ namespace BookWorm_DotNet.Migrations
                         name: "FK_ProductBeneficiaries_BeneficiaryMasters_BeneficiaryId",
                         column: x => x.BeneficiaryId,
                         principalTable: "BeneficiaryMasters",
-                        principalColumn: "BeneficiaryId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "BeneficiaryId");
                     table.ForeignKey(
                         name: "FK_ProductBeneficiaries_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ProductId");
                 });
 
             migrationBuilder.CreateTable(
