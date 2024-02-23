@@ -1,7 +1,7 @@
 ﻿using BookWorm_DotNet.Data;
 using BookWorm_DotNet.Models;
 
-namespace BookWorm_DotNet.Repositories
+namespace BookWorm_DotNet.Controllers
 {
     public class MyShelfRepository : IMyShelfRepository
     {
@@ -13,7 +13,7 @@ namespace BookWorm_DotNet.Repositories
         }
         public MyShelf AddToShelf(MyShelf myShelf)
         {
-            if(myShelf != null)
+            if (myShelf != null)
             {
                 context.MyShelves.Add(myShelf);
                 context.SaveChanges();

@@ -1,7 +1,7 @@
 ﻿using BookWorm_DotNet.Data;
 using BookWorm_DotNet.Models;
 
-namespace BookWorm_DotNet.Repositories
+namespace BookWorm_DotNet.Controllers
 {
     public class RoyaltyCalculationRepository : IRoyaltyCalculationRepository
     {
@@ -14,7 +14,7 @@ namespace BookWorm_DotNet.Repositories
         }
         public RoyaltyCalculation AddRoyaltyCalculation(RoyaltyCalculation royaltyCalculation)
         {
-            if(royaltyCalculation != null)
+            if (royaltyCalculation != null)
             {
                 context.RoyaltyCalculations.Add(royaltyCalculation);
                 context.SaveChanges();

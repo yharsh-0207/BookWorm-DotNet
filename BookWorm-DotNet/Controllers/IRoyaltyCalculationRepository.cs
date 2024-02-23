@@ -1,6 +1,6 @@
 ﻿using BookWorm_DotNet.Models;
 
-namespace BookWorm_DotNet.Repositories
+namespace BookWorm_DotNet.Controllers
 {
     public interface IRoyaltyCalculationRepository
     {
