@@ -17,6 +17,9 @@ namespace BookWorm_DotNet
 
             builder.Services.AddControllers();
 
+            builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+            builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IMyShelfRepository, MyShelfRepository>();
