@@ -97,7 +97,7 @@ namespace BookWorm_DotNet.Migrations
                 {
                     ShelfId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ProductExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TransactionType = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
@@ -153,7 +153,7 @@ namespace BookWorm_DotNet.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InvoiceAmount = table.Column<double>(type: "float", nullable: false),
                     InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<long>(type: "bigint", nullable: true),
                     BuyAmount = table.Column<double>(type: "float", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
@@ -167,8 +167,7 @@ namespace BookWorm_DotNet.Migrations
                         name: "FK_Invoices_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CustomerId");
                 });
 
             migrationBuilder.CreateTable(
@@ -191,10 +190,10 @@ namespace BookWorm_DotNet.Migrations
                     Publisher = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     SalePrice = table.Column<double>(type: "float", nullable: false),
                     RentPerDay = table.Column<double>(type: "float", nullable: false),
-                    GenreId = table.Column<long>(type: "bigint", nullable: false),
-                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: false),
-                    ShelfId = table.Column<long>(type: "bigint", nullable: false)
+                    GenreId = table.Column<long>(type: "bigint", nullable: true),
+                    LanguageId = table.Column<long>(type: "bigint", nullable: true),
+                    TypeId = table.Column<int>(type: "int", nullable: true),
+                    ShelfId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -203,26 +202,22 @@ namespace BookWorm_DotNet.Migrations
                         name: "FK_Products_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
-                        principalColumn: "GenreId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "GenreId");
                     table.ForeignKey(
                         name: "FK_Products_LanguageMasters_LanguageId",
                         column: x => x.LanguageId,
                         principalTable: "LanguageMasters",
-                        principalColumn: "LanguageId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "LanguageId");
                     table.ForeignKey(
                         name: "FK_Products_MyShelves_ShelfId",
                         column: x => x.ShelfId,
                         principalTable: "MyShelves",
-                        principalColumn: "ShelfId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ShelfId");
                     table.ForeignKey(
                         name: "FK_Products_ProductTypeMasters_TypeId",
                         column: x => x.TypeId,
                         principalTable: "ProductTypeMasters",
-                        principalColumn: "TypeId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TypeId");
                 });
 
             migrationBuilder.CreateTable(
@@ -231,29 +226,22 @@ namespace BookWorm_DotNet.Migrations
                 {
                     InvoiceDetailId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BasePrice = table.Column<double>(type: "float", nullable: false),
+                    BuyAmount = table.Column<double>(type: "float", nullable: false),
                     RentDays = table.Column<int>(type: "int", nullable: false),
-                    SalePrice = table.Column<double>(type: "float", nullable: false),
+                    RentAmount = table.Column<double>(type: "float", nullable: false),
                     TransactionType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InvoiceId = table.Column<long>(type: "bigint", nullable: false),
-                    ProductId = table.Column<long>(type: "bigint", nullable: false),
+                    ProductId = table.Column<long>(type: "bigint", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_invoice_detail", x => x.InvoiceDetailId);
                     table.ForeignKey(
-                        name: "FK_InvoiceDetails_Invoices_InvoiceId",
-                        column: x => x.InvoiceId,
-                        principalTable: "Invoices",
-                        principalColumn: "InvoiceId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_InvoiceDetails_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ProductId");
                 });
 
             migrationBuilder.CreateTable(
@@ -328,11 +316,6 @@ namespace BookWorm_DotNet.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_InvoiceDetails_InvoiceId",
-                table: "InvoiceDetails",
-                column: "InvoiceId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_InvoiceDetails_ProductId",
                 table: "InvoiceDetails",
                 column: "ProductId");
@@ -396,6 +379,9 @@ namespace BookWorm_DotNet.Migrations
                 name: "InvoiceDetails");
 
             migrationBuilder.DropTable(
+                name: "Invoices");
+
+            migrationBuilder.DropTable(
                 name: "ProductAttributes");
 
             migrationBuilder.DropTable(
@@ -408,7 +394,7 @@ namespace BookWorm_DotNet.Migrations
                 name: "RoyaltyCalculations");
 
             migrationBuilder.DropTable(
-                name: "Invoices");
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Attributes");
@@ -418,9 +404,6 @@ namespace BookWorm_DotNet.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Genres");

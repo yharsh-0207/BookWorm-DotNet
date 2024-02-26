@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookWorm_DotNet.Migrations
 {
     [DbContext(typeof(BookwormContext))]
-    [Migration("20240223105625_add11")]
-    partial class add11
+    [Migration("20240226130247_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,7 +87,7 @@ namespace BookWorm_DotNet.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<double>("TotalEarning")
+                    b.Property<double?>("TotalEarning")
                         .HasColumnType("float");
 
                     b.HasKey("BeneficiaryId")
@@ -215,7 +215,7 @@ namespace BookWorm_DotNet.Migrations
                     b.Property<long>("InvoiceId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProductId")
+                    b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("Quantity")
@@ -268,8 +268,8 @@ namespace BookWorm_DotNet.Migrations
                     b.Property<long>("BuyId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -333,7 +333,7 @@ namespace BookWorm_DotNet.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long>("GenreId")
+                    b.Property<long?>("GenreId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsRentable")
@@ -344,7 +344,7 @@ namespace BookWorm_DotNet.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long>("LanguageId")
+                    b.Property<long?>("LanguageId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("MinRentDays")
@@ -372,10 +372,10 @@ namespace BookWorm_DotNet.Migrations
                     b.Property<double>("SalePrice")
                         .HasColumnType("float");
 
-                    b.Property<long>("ShelfId")
+                    b.Property<long?>("ShelfId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("TypeId")
+                    b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId")
@@ -429,13 +429,13 @@ namespace BookWorm_DotNet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ProductBeneficiaryId"));
 
-                    b.Property<long>("BeneficiaryId")
+                    b.Property<long?>("BeneficiaryId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("BeneficiaryPercentage")
+                    b.Property<double?>("BeneficiaryPercentage")
                         .HasColumnType("float");
 
-                    b.Property<long>("ProductId")
+                    b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
                     b.HasKey("ProductBeneficiaryId")
@@ -543,36 +543,26 @@ namespace BookWorm_DotNet.Migrations
                 {
                     b.HasOne("BookWorm_DotNet.Models.Product", null)
                         .WithMany("InvoiceDetails")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("BookWorm_DotNet.Models.Product", b =>
                 {
                     b.HasOne("BookWorm_DotNet.Models.Genre", "Genre")
                         .WithMany("Products")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GenreId");
 
                     b.HasOne("BookWorm_DotNet.Models.Language", "Language")
                         .WithMany("Products")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LanguageId");
 
                     b.HasOne("BookWorm_DotNet.Models.MyShelf", "Shelf")
                         .WithMany("Products")
-                        .HasForeignKey("ShelfId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ShelfId");
 
                     b.HasOne("BookWorm_DotNet.Models.ProductType", "Type")
                         .WithMany("Products")
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeId");
 
                     b.Navigation("Genre");
 
@@ -605,15 +595,11 @@ namespace BookWorm_DotNet.Migrations
                 {
                     b.HasOne("BookWorm_DotNet.Models.Beneficiary", "Beneficiary")
                         .WithMany("ProductBeneficiaries")
-                        .HasForeignKey("BeneficiaryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BeneficiaryId");
 
                     b.HasOne("BookWorm_DotNet.Models.Product", "Product")
                         .WithMany("ProductBeneficiaries")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Beneficiary");
 
@@ -669,8 +655,7 @@ namespace BookWorm_DotNet.Migrations
 
                     b.Navigation("ProductBeneficiaries");
 
-                    b.Navigation("ProductUrl")
-                        .IsRequired();
+                    b.Navigation("ProductUrl");
                 });
 
             modelBuilder.Entity("BookWorm_DotNet.Models.ProductType", b =>
