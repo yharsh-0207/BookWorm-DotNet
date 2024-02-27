@@ -23,6 +23,13 @@ namespace BookWorm_DotNet
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddCors(
+            (p) => p.AddDefaultPolicy(policy => policy.WithOrigins("*")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    )
+            );
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,11 +39,14 @@ namespace BookWorm_DotNet
                 app.UseSwaggerUI();
             }
 
+
+
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-
+            app.UseCors();
             app.MapControllers();
 
             app.Run();

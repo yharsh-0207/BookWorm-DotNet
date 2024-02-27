@@ -7,7 +7,6 @@ using System.Net;
 namespace Bookworm.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerRepository _customerRepository;
@@ -17,14 +16,14 @@ namespace Bookworm.Controllers
             _customerRepository = customerRepository;
         }
 
-        [HttpPost("Add")]
+        [HttpPost("api/SignUp")]
         public IActionResult AddCustomer(Customer customer)
         {
            long id= _customerRepository.AddCustomer(customer);
             return Ok(id);
         }
 
-        [HttpPost("Login")]
+        [HttpPost("api/Login")]
         public IActionResult Login(User user)
         {
             Customer customerResponse = _customerRepository.LoginUser(user.Email, user.Password);
