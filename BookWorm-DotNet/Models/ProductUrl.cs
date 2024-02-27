@@ -11,5 +11,5 @@ public partial class ProductUrl
 
     public long ProductId { get; set; }
 
-    public virtual Product Product { get; set; }
+    public virtual Product? Product { get; set; }
 }
