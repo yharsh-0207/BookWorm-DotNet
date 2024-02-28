@@ -1,4 +1,4 @@
-﻿using BookWorm_DotNet.Dal;
+﻿using BookWorm_DotNet.DAL;
 using BookWorm_DotNet.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -36,6 +36,20 @@ namespace Bookworm.Controllers
             else
             {
                 return Unauthorized();
+            }
+        }
+
+        [HttpGet("GetCustomerById/{customerId}")]
+        public IActionResult GetCustomer(long customerId)
+        {
+            Customer customer = _customerRepository.GetCustomer(customerId);
+            if (customer != null)
+            {
+                return Ok(customer);
+            }
+            else
+            {
+                return NotFound();
             }
         }
     }

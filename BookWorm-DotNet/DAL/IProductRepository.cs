@@ -12,5 +12,6 @@ namespace BookWorm_DotNet.DAL
         ActionResult<List<Product>> GetProductByType(long typeId);
         ActionResult<List<Product>> GetProductsByTypeAndGenre(long typeId, long genreId);
         ActionResult<List<Product>> GetProductsByTypeAndLang(long typeId, long langId);
+        ActionResult<List<Product>> GetProductsByTypeAndGenre(long typeId, long genreId);
     }
 }
