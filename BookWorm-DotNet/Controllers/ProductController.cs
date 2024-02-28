@@ -54,6 +54,11 @@ namespace BookWorm_DotNet.Controllers
         {
             return _repository.GetProductsByTypeAndLang(typeId, langId);
         }
+        [HttpGet("type/{typeId}/genre/{genreId}")]
+        public ActionResult<List<Product>> GetProductsByTypeAndGenre(long typeId, long genreId)
+        {
+            return _repository.GetProductsByTypeAndGenre(typeId, genreId);
+        }
 
         [HttpGet("id/{id}")]
         public ActionResult<Product> GetById(long id)

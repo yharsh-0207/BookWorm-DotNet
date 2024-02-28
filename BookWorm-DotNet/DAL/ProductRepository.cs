@@ -68,6 +68,18 @@ namespace BookWorm_DotNet.DAL
             return new OkObjectResult(products);
         }
 
+        public ActionResult<List<Product>> GetProductsByTypeAndGenre(long typeId, long genreId)
+        {
+            var products = _bookwormContext.Products.Where(p => p.TypeId == typeId && p.GenreId == genreId).ToList();
+
+            if (products == null || products.Count == 0)
+            {
+                return new NotFoundResult();
+            }
+
+            return new OkObjectResult(products);
+        }
+
         public ActionResult<List<Product>> GetProductsByTypeAndLang(long typeId, long langId)
         {
             var products = _bookwormContext.Products.Where(p => p.TypeId == typeId && p.LanguageId == langId).ToList();
