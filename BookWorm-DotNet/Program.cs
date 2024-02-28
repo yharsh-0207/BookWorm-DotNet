@@ -3,7 +3,9 @@ using BookWorm_DotNet.Controllers;
 using BookWorm_DotNet.Data;
 using BookWorm_DotNet.Services;
 using Microsoft.EntityFrameworkCore;
-
+using EmailApplication.Interface;
+using EmailApplication.Service;
+using EmailApplication.Model;
 
 namespace BookWorm_DotNet
 {
@@ -15,7 +17,8 @@ namespace BookWorm_DotNet
 
             // Add services to the container.
 
-
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.AddScoped<IMailService, MailService>();
             builder.Services.AddControllers();
 
             builder.Services.AddScoped<IGenreRepository, GenreRepository>();
@@ -32,9 +35,21 @@ namespace BookWorm_DotNet
             builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
             builder.Services.AddScoped<IInvoiceDetailRepository, InvoiceDetailRepository>();
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            
             builder.Services.AddDbContext<BookwormContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("SpecificOrigins",
+                                   builder =>
+                                   {
+                                       builder.WithOrigins("*")
+                                       .AllowAnyHeader()
+                                       .AllowAnyMethod();
+                                   });
+
             });
             var app = builder.Build();
 
@@ -51,6 +66,7 @@ namespace BookWorm_DotNet
 
 
             app.MapControllers();
+            app.UseCors("SpecificOrigins");
 
             app.Run();
         }
