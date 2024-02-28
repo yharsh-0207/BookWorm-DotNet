@@ -3,6 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+
 # User-specific files
 *.rsuser
 *.suo
@@ -300,6 +301,7 @@ node_modules/
 **/*.DesktopClient/ModelManifest.xml
 **/*.Server/GeneratedArtifacts
 **/*.Server/ModelManifest.xml
+**/Migrations/*
 _Pvt_Extensions
 
 # Paket dependency manager

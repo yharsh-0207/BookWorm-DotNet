@@ -25,7 +25,7 @@ public partial class Beneficiary
 
     public string? BeneficiaryPAN { get; set; }
 
-    public double TotalEarning { get; set; }
+    public double? TotalEarning { get; set; }
 
-    public ICollection<ProductBeneficiary> ProductBeneficiaries { get; set; }
+    public ICollection<ProductBeneficiary>? ProductBeneficiaries { get; set; }
 }

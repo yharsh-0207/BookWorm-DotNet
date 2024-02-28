@@ -1,4 +1,5 @@
-﻿using BookWorm_DotNet.Models;
+﻿using BookWorm_DotNet.DAL;
+using BookWorm_DotNet.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookWorm_DotNet.Controllers
