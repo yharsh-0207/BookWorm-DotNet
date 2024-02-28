@@ -22,5 +22,10 @@ namespace BookWorm_DotNet.DAL
         {
             return _context.Customers.FirstOrDefault((c) => c.Email == email && c.Password == password);
         }
+
+        public Customer GetCustomer(long customerId)
+        {
+            return _context.Customers.Find(customerId);
+        }
     }
 }

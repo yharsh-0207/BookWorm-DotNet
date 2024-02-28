@@ -6,5 +6,6 @@ namespace BookWorm_DotNet.DAL
     {
         Customer LoginUser(String email, String password);
         long AddCustomer(Customer customer);
+        Customer GetCustomer(long customerId);
     }
 }

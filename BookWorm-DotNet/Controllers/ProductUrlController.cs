@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookWorm_DotNet.Controllers
 {
     [ApiController]
-    [Route("api/product")]
+    [Route("api/[controller]")]
     public class ProductUrlController : ControllerBase
     {
 

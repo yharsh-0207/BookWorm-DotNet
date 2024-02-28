@@ -1,6 +1,4 @@
-﻿namespace BookWorm_DotNet.Controllers
-{
-    using BookWorm_DotNet.DAL;
+﻿    using BookWorm_DotNet.DAL;
     using BookWorm_DotNet.Models;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
@@ -9,11 +7,11 @@
     {
         [Route("api/[controller]")]
         [ApiController]
-        public class ProductTypeMasterController : ControllerBase
+        public class ProductTypeController : ControllerBase
         {
             private readonly IProductTypeRepository _productTypeService;
 
-            public ProductTypeMasterController(IProductTypeRepository productTypeService)
+            public ProductTypeController(IProductTypeRepository productTypeService)
             {
                 _productTypeService = productTypeService;
             }
@@ -50,4 +48,3 @@
         }
     }
 
-}
