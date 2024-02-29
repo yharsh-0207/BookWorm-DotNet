@@ -3,7 +3,9 @@ using BookWorm_DotNet.Controllers;
 using BookWorm_DotNet.Data;
 using BookWorm_DotNet.Services;
 using Microsoft.EntityFrameworkCore;
-
+using EmailApplication.Interface;
+using EmailApplication.Service;
+using EmailApplication.Model;
 
 namespace BookWorm_DotNet
 {
@@ -15,7 +17,8 @@ namespace BookWorm_DotNet
 
             // Add services to the container.
 
-
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.AddScoped<IMailService, MailService>();
             builder.Services.AddControllers();
 
             builder.Services.AddScoped<IGenreRepository, GenreRepository>();
@@ -28,6 +31,9 @@ namespace BookWorm_DotNet
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
             builder.Services.AddScoped<IProductUrlRepository, ProductUrlRepository>();
+            builder.Services.AddScoped<IProductBeneficiaryRepository, ProductBeneficiaryRepository>();
+            builder.Services.AddScoped<IBeneficiaryRepository, BeneficiaryRepository>();
+
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -41,7 +47,6 @@ namespace BookWorm_DotNet
                     .AllowAnyMethod();
                 });
             });
-
             
             builder.Services.AddDbContext<BookwormContext>(options =>
             {

@@ -8,7 +8,7 @@ namespace BookWorm_DotNet.DAL
         Task AddProduct(Product product);
         ActionResult<List<Product>> GetAllProducts();
         ActionResult<Product> GetById(long id);
-        ActionResult<Product> GetProductById(long id);
+        Product GetProductById(long id);
         ActionResult<List<Product>> GetProductByType(long typeId);
         ActionResult<List<Product>> GetProductsByTypeAndGenre(long typeId, long genreId, long genreId1);
         ActionResult<List<Product>> GetProductsByTypeAndLang(long typeId, long langId);

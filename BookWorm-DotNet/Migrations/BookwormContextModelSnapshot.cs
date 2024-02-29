@@ -485,29 +485,28 @@ namespace BookWorm_DotNet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("RoyaltyCalculationId"));
 
-                    b.Property<double>("BasePrice")
+                    b.Property<double?>("BasePrice")
                         .HasColumnType("float");
 
-                    b.Property<long>("BeneficiaryId")
+                    b.Property<long?>("BeneficiaryId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("InvoiceId")
+                    b.Property<long?>("InvoiceId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProductId")
+                    b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("RoyaltyCalculationDate")
+                    b.Property<DateTime?>("RoyaltyCalculationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("RoyaltyOnBasePrice")
+                    b.Property<double?>("RoyaltyOnBasePrice")
                         .HasColumnType("float");
 
-                    b.Property<double>("SalePrice")
+                    b.Property<double?>("SalePrice")
                         .HasColumnType("float");
 
                     b.Property<string>("TransactionType")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
