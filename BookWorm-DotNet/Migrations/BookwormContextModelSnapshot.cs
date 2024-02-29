@@ -267,7 +267,7 @@ namespace BookWorm_DotNet.Migrations
                     b.Property<double>("PriceAmount")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("ProductExpiryDate")
+                    b.Property<DateTime?>("ProductExpiryDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ProductName")
