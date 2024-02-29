@@ -5,7 +5,7 @@ using BookWorm_DotNet.Data;
 using BookWorm_DotNet.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookWorm_DotNet.Repositories
+namespace BookWorm_DotNet.DAL
 {
     public interface IBeneficiaryRepository
     {

@@ -28,6 +28,9 @@ namespace BookWorm_DotNet
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
             builder.Services.AddScoped<IProductUrlRepository, ProductUrlRepository>();
+            builder.Services.AddScoped<IProductBeneficiaryRepository, ProductBeneficiaryRepository>();
+            builder.Services.AddScoped<IBeneficiaryRepository, BeneficiaryRepository>();
+
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

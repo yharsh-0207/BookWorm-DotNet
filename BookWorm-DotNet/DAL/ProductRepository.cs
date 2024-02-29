@@ -44,16 +44,10 @@ namespace BookWorm_DotNet.DAL
             return new OkObjectResult(product);
         }
 
-        public ActionResult<Product> GetProductById(long id)
+        public Product GetProductById(long id)
         {
-            var product = _bookwormContext.Products.Find(id);
-
-            if (product == null)
-            {
-                return new NotFoundResult();
-            }
-
-            return new OkObjectResult(product);
+            Product product = _bookwormContext.Products.Find(id);
+            return product;
         }
 
         public ActionResult<List<Product>> GetProductByType(long typeId)

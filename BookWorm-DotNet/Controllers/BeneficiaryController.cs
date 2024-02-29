@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using BookWorm_DotNet.Models;
-using BookWorm_DotNet.Repositories;
+using BookWorm_DotNet.DAL;
 
 namespace BookWorm_DotNet.Controllers
 {
