@@ -52,17 +52,6 @@ namespace BookWorm_DotNet
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("SpecificOrigins",
-                                   builder =>
-                                   {
-                                       builder.WithOrigins("*")
-                                       .AllowAnyHeader()
-                                       .AllowAnyMethod();
-                                   });
-
-            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -78,7 +67,6 @@ namespace BookWorm_DotNet
 
             app.UseCors();
             app.MapControllers();
-            app.UseCors("SpecificOrigins");
 
             app.Run();
         }
