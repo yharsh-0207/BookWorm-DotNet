@@ -38,5 +38,19 @@ namespace Bookworm.Controllers
                 return Unauthorized();
             }
         }
+
+        [HttpGet("GetCustomerById/{customerId}")]
+        public IActionResult GetCustomer(long customerId)
+        {
+            Customer customer = _customerRepository.GetCustomer(customerId);
+            if (customer != null)
+            {
+                return Ok(customer);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }

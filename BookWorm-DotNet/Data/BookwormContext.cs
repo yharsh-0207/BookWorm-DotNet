@@ -166,9 +166,6 @@ public partial class BookwormContext : DbContext
             entity.HasOne(d => d.Language).WithMany(p => p.Products)
                 .HasForeignKey(d => d.LanguageId);
 
-            entity.HasOne(d => d.Shelf).WithMany(p => p.Products)
-                .HasForeignKey(d => d.ShelfId);
-
             entity.HasOne(d => d.Type).WithMany(p => p.Products)
                 .HasForeignKey(d => d.TypeId);
         });

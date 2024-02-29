@@ -41,11 +41,7 @@ public partial class Product
 
     public int? TypeId { get; set; }
 
-    public long? ShelfId { get; set; }
-
     public Genre? Genre { get; set; }
-
-    public ICollection<InvoiceDetail>? InvoiceDetails { get; set; }
 
     public Language? Language { get; set; }
 
@@ -54,8 +50,6 @@ public partial class Product
     public ICollection<ProductBeneficiary>? ProductBeneficiaries { get; set; }
 
     public ProductUrl? ProductUrl { get; set; }
-
-    public MyShelf? Shelf { get; set; }
 
     public ProductType? Type { get; set; }
 }

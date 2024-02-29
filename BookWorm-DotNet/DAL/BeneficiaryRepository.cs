@@ -1,51 +1,53 @@
 ﻿
 using BookWorm_DotNet.Data;
 using BookWorm_DotNet.Models;
-using BookWorm_DotNet.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-public class BeneficiaryRepository : IBeneficiaryRepository
+namespace BookWorm_DotNet.DAL
 {
-    private readonly BookwormContext _context;
-
-    public BeneficiaryRepository(BookwormContext context)
+    public class BeneficiaryRepository : IBeneficiaryRepository
     {
-        _context = context;
-    }
+        private readonly BookwormContext _context;
 
-    public IEnumerable<Beneficiary> GetAllBeneficiaries()
-    {
-        return _context.BeneficiaryMasters.ToList();
-    }
-
-    public Beneficiary GetBeneficiaryById(long id)
-    {
-        return _context.BeneficiaryMasters.Find(id);
-    }
-
-    public void AddBeneficiary(Beneficiary beneficiary)
-    {
-        _context.BeneficiaryMasters.Add(beneficiary);
-        _context.SaveChanges();
-    }
-
-    public void UpdateBeneficiary(Beneficiary beneficiary)
-    {
-        _context.Entry(beneficiary).State = EntityState.Modified;
-        _context.SaveChanges();
-    }
-
-    public void DeleteBeneficiary(long id)
-    {
-        var beneficiary = _context.BeneficiaryMasters.Find(id);
-        if (beneficiary != null)
+        public BeneficiaryRepository(BookwormContext context)
         {
-            _context.BeneficiaryMasters.Remove(beneficiary);
+            _context = context;
+        }
+
+        public IEnumerable<Beneficiary> GetAllBeneficiaries()
+        {
+            return _context.BeneficiaryMasters.ToList();
+        }
+
+        public Beneficiary GetBeneficiaryById(long id)
+        {
+            return _context.BeneficiaryMasters.Find(id);
+        }
+
+        public void AddBeneficiary(Beneficiary beneficiary)
+        {
+            _context.BeneficiaryMasters.Add(beneficiary);
             _context.SaveChanges();
         }
-        else
+
+        public void UpdateBeneficiary(Beneficiary beneficiary)
         {
-            throw new ArgumentException("Beneficiary not found");
+            _context.Entry(beneficiary).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void DeleteBeneficiary(long id)
+        {
+            var beneficiary = _context.BeneficiaryMasters.Find(id);
+            if (beneficiary != null)
+            {
+                _context.BeneficiaryMasters.Remove(beneficiary);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentException("Beneficiary not found");
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ using BookWorm_DotNet.Data;
 using BookWorm_DotNet.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookWorm_DotNet.Repositories
+namespace BookWorm_DotNet.DAL
 {
     public interface IProductBeneficiaryRepository
     {
@@ -14,6 +14,7 @@ namespace BookWorm_DotNet.Repositories
         void AddProductBeneficiary(ProductBeneficiary productBeneficiary);
         void UpdateProductBeneficiary(ProductBeneficiary productBeneficiary);
         void DeleteProductBeneficiary(long id);
+        IEnumerable<ProductBeneficiary> GetByProductId(long id);
     }
 
     

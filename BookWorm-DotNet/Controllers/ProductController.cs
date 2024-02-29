@@ -29,19 +29,6 @@ namespace BookWorm_DotNet.Controllers
             return _repository.GetAllProducts();
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Product> GetProductById(long id)
-        {
-            var product = _repository.GetProductById(id);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return product;
-        }
-
         [HttpGet("type/{typeId}")]
         public ActionResult<List<Product>> GetProductByType(long typeId)
         {
@@ -66,6 +53,12 @@ namespace BookWorm_DotNet.Controllers
             }
 
             return product;
+        }
+
+        [HttpGet("type/{typeId}/genre/{genreId}")]
+        public ActionResult<List<Product>> GetProductsByTypeAndGenre(long typeId, long genreId)
+        {
+            return _repository.GetProductsByTypeAndGenre(typeId, genreId);
         }
 
     }
