@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BookWorm_DotNet.Models;
-using BookWorm_DotNet.Repositories;
+using BookWorm_DotNet.DAL;
 
 namespace BookWorm_DotNet.Controllers
 {

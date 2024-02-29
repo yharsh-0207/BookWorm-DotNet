@@ -1,6 +1,7 @@
 ﻿using BookWorm_DotNet.DAL;
 using BookWorm_DotNet.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace BookWorm_DotNet.Controllers
 {
@@ -10,10 +11,16 @@ namespace BookWorm_DotNet.Controllers
     {
         private readonly IMyShelfRepository myShelfRepository;
         private readonly IRoyaltyCalculationRepository royaltyCalculationRepository;
-        public MyShelfController(IMyShelfRepository myShelfRepository, IRoyaltyCalculationRepository royaltyCalculationRepository)
+        private readonly IProductBeneficiaryRepository productBeneficiaryRepository;
+        private readonly IProductRepository productRepository;
+        private readonly IBeneficiaryRepository beneficiaryRepository;
+        public MyShelfController(IMyShelfRepository myShelfRepository, IRoyaltyCalculationRepository royaltyCalculationRepository, IProductBeneficiaryRepository productBeneficiaryRepository, IProductRepository productRepository, IBeneficiaryRepository beneficiaryRepository )
         {
             this.myShelfRepository = myShelfRepository;
             this.royaltyCalculationRepository = royaltyCalculationRepository;
+            this.productBeneficiaryRepository = productBeneficiaryRepository;
+            this.beneficiaryRepository = beneficiaryRepository;
+            this.productRepository = productRepository;
         }
 
 
@@ -35,6 +42,34 @@ namespace BookWorm_DotNet.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+            IEnumerable<ProductBeneficiary> productBeneficiaries = productBeneficiaryRepository.GetByProductId(myShelf.BuyId);
+            Product product = productRepository.GetProductById(myShelf.BuyId);
+            double amount = 0;
+            double totalEaring = 0;
+            foreach(ProductBeneficiary productBeneficiary in productBeneficiaries)
+            {
+                RoyaltyCalculation royaltyCalculation = new RoyaltyCalculation();
+                royaltyCalculation.BeneficiaryId = productBeneficiary.BeneficiaryId.Value;
+                royaltyCalculation.BasePrice = product.Baseprice;
+                royaltyCalculation.TransactionType = myShelf.TransactionType;
+                royaltyCalculation.ProductId = myShelf.BuyId;
+                royaltyCalculation.RoyaltyCalculationDate = myShelf.ProductExpiryDate;
+                royaltyCalculation.SalePrice = product.SalePrice;
+                if (myShelf.PriceAmount != 0)
+                {
+                    amount = product.Baseprice * (productBeneficiary.BeneficiaryPercentage.Value / 100);
+                }
+                else
+                {
+                    amount = myShelf.TotalAmount * (productBeneficiary.BeneficiaryPercentage.Value / 100);
+                }
+                royaltyCalculation.RoyaltyOnBasePrice = amount;
+                royaltyCalculationRepository.AddRoyaltyCalculation(royaltyCalculation);
+                Beneficiary beneficiary = beneficiaryRepository.GetBeneficiaryById(productBeneficiary.BeneficiaryId.Value);
+                totalEaring = beneficiary.TotalEarning.Value + amount;
+                beneficiary.TotalEarning = totalEaring;
+                beneficiaryRepository.UpdateBeneficiary(beneficiary);
             }
 
             var createdMyShelf = myShelfRepository.AddToShelf(myShelf);
