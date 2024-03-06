@@ -35,27 +35,21 @@ public partial class Product
 
     public double RentPerDay { get; set; }
 
-    public long GenreId { get; set; }
+    public long? GenreId { get; set; }
 
-    public long LanguageId { get; set; }
+    public long? LanguageId { get; set; }
 
-    public int TypeId { get; set; }
+    public int? TypeId { get; set; }
 
-    public long ShelfId { get; set; }
+    public Genre? Genre { get; set; }
 
-    public Genre Genre { get; set; }
+    public Language? Language { get; set; }
 
-    public ICollection<InvoiceDetail> InvoiceDetails { get; set; }
+    public ICollection<ProductAttribute>? ProductAttributes { get; set; }
 
-    public Language Language { get; set; }
+    public ICollection<ProductBeneficiary>? ProductBeneficiaries { get; set; }
 
-    public ICollection<ProductAttribute> ProductAttributes { get; set; }
+    public ProductUrl? ProductUrl { get; set; }
 
-    public ICollection<ProductBeneficiary> ProductBeneficiaries { get; set; }
-
-    public ProductUrl ProductUrl { get; set; }
-
-    public MyShelf? Shelf { get; set; }
-
-    public ProductType Type { get; set; }
+    public ProductType? Type { get; set; }
 }
