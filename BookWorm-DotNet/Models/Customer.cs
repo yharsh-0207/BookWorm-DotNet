@@ -21,6 +21,4 @@ public partial class Customer
     public string? Password { get; set; }
 
     public string? PhoneNo { get; set; }
-
-    public ICollection<Invoice>? Invoices { get; set; }
 }

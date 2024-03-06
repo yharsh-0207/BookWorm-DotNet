@@ -84,7 +84,7 @@ namespace BookWorm_DotNet.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<double>("TotalEarning")
+                    b.Property<double?>("TotalEarning")
                         .HasColumnType("float");
 
                     b.HasKey("BeneficiaryId")
@@ -165,7 +165,7 @@ namespace BookWorm_DotNet.Migrations
                     b.Property<double>("BuyAmount")
                         .HasColumnType("float");
 
-                    b.Property<long>("CustomerId")
+                    b.Property<long?>("CustomerId")
                         .HasColumnType("bigint");
 
                     b.Property<double>("InvoiceAmount")
@@ -193,8 +193,6 @@ namespace BookWorm_DotNet.Migrations
                     b.HasKey("InvoiceId")
                         .HasName("pk_invoice");
 
-                    b.HasIndex("CustomerId");
-
                     b.ToTable("Invoices");
                 });
 
@@ -206,23 +204,23 @@ namespace BookWorm_DotNet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("InvoiceDetailId"));
 
-                    b.Property<double>("BasePrice")
+                    b.Property<double>("BuyAmount")
                         .HasColumnType("float");
 
                     b.Property<long>("InvoiceId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProductId")
+                    b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<double>("RentAmount")
+                        .HasColumnType("float");
+
                     b.Property<int>("RentDays")
                         .HasColumnType("int");
-
-                    b.Property<double>("SalePrice")
-                        .HasColumnType("float");
 
                     b.Property<string>("TransactionType")
                         .IsRequired()
@@ -230,10 +228,6 @@ namespace BookWorm_DotNet.Migrations
 
                     b.HasKey("InvoiceDetailId")
                         .HasName("pk_invoice_detail");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("InvoiceDetails");
                 });
@@ -267,16 +261,13 @@ namespace BookWorm_DotNet.Migrations
                     b.Property<long>("BuyId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
 
                     b.Property<double>("PriceAmount")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("ProductExpiryDate")
+                    b.Property<DateTime?>("ProductExpiryDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ProductName")
@@ -332,7 +323,7 @@ namespace BookWorm_DotNet.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long>("GenreId")
+                    b.Property<long?>("GenreId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsRentable")
@@ -343,7 +334,7 @@ namespace BookWorm_DotNet.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long>("LanguageId")
+                    b.Property<long?>("LanguageId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("MinRentDays")
@@ -371,10 +362,7 @@ namespace BookWorm_DotNet.Migrations
                     b.Property<double>("SalePrice")
                         .HasColumnType("float");
 
-                    b.Property<long>("ShelfId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("TypeId")
+                    b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId")
@@ -383,8 +371,6 @@ namespace BookWorm_DotNet.Migrations
                     b.HasIndex("GenreId");
 
                     b.HasIndex("LanguageId");
-
-                    b.HasIndex("ShelfId");
 
                     b.HasIndex("TypeId");
 
@@ -428,13 +414,13 @@ namespace BookWorm_DotNet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ProductBeneficiaryId"));
 
-                    b.Property<long>("BeneficiaryId")
+                    b.Property<long?>("BeneficiaryId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("BeneficiaryPercentage")
+                    b.Property<double?>("BeneficiaryPercentage")
                         .HasColumnType("float");
 
-                    b.Property<long>("ProductId")
+                    b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
                     b.HasKey("ProductBeneficiaryId")
@@ -499,29 +485,28 @@ namespace BookWorm_DotNet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("RoyaltyCalculationId"));
 
-                    b.Property<double>("BasePrice")
+                    b.Property<double?>("BasePrice")
                         .HasColumnType("float");
 
-                    b.Property<long>("BeneficiaryId")
+                    b.Property<long?>("BeneficiaryId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("InvoiceId")
+                    b.Property<long?>("InvoiceId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProductId")
+                    b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("RoyaltyCalculationDate")
+                    b.Property<DateTime?>("RoyaltyCalculationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("RoyaltyOnBasePrice")
+                    b.Property<double?>("RoyaltyOnBasePrice")
                         .HasColumnType("float");
 
-                    b.Property<double>("SalePrice")
+                    b.Property<double?>("SalePrice")
                         .HasColumnType("float");
 
                     b.Property<string>("TransactionType")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -531,67 +516,23 @@ namespace BookWorm_DotNet.Migrations
                     b.ToTable("RoyaltyCalculations");
                 });
 
-            modelBuilder.Entity("BookWorm_DotNet.Models.Invoice", b =>
-                {
-                    b.HasOne("BookWorm_DotNet.Models.Customer", "Customer")
-                        .WithMany("Invoices")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("BookWorm_DotNet.Models.InvoiceDetail", b =>
-                {
-                    b.HasOne("BookWorm_DotNet.Models.Invoice", "Invoice")
-                        .WithMany("InvoiceDetails")
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookWorm_DotNet.Models.Product", "Product")
-                        .WithMany("InvoiceDetails")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Invoice");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("BookWorm_DotNet.Models.Product", b =>
                 {
                     b.HasOne("BookWorm_DotNet.Models.Genre", "Genre")
                         .WithMany("Products")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GenreId");
 
                     b.HasOne("BookWorm_DotNet.Models.Language", "Language")
                         .WithMany("Products")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookWorm_DotNet.Models.MyShelf", "Shelf")
-                        .WithMany("Products")
-                        .HasForeignKey("ShelfId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LanguageId");
 
                     b.HasOne("BookWorm_DotNet.Models.ProductType", "Type")
                         .WithMany("Products")
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeId");
 
                     b.Navigation("Genre");
 
                     b.Navigation("Language");
-
-                    b.Navigation("Shelf");
 
                     b.Navigation("Type");
                 });
@@ -618,15 +559,11 @@ namespace BookWorm_DotNet.Migrations
                 {
                     b.HasOne("BookWorm_DotNet.Models.Beneficiary", "Beneficiary")
                         .WithMany("ProductBeneficiaries")
-                        .HasForeignKey("BeneficiaryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BeneficiaryId");
 
                     b.HasOne("BookWorm_DotNet.Models.Product", "Product")
                         .WithMany("ProductBeneficiaries")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Beneficiary");
 
@@ -654,19 +591,9 @@ namespace BookWorm_DotNet.Migrations
                     b.Navigation("ProductBeneficiaries");
                 });
 
-            modelBuilder.Entity("BookWorm_DotNet.Models.Customer", b =>
-                {
-                    b.Navigation("Invoices");
-                });
-
             modelBuilder.Entity("BookWorm_DotNet.Models.Genre", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("BookWorm_DotNet.Models.Invoice", b =>
-                {
-                    b.Navigation("InvoiceDetails");
                 });
 
             modelBuilder.Entity("BookWorm_DotNet.Models.Language", b =>
@@ -674,21 +601,13 @@ namespace BookWorm_DotNet.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("BookWorm_DotNet.Models.MyShelf", b =>
-                {
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("BookWorm_DotNet.Models.Product", b =>
                 {
-                    b.Navigation("InvoiceDetails");
-
                     b.Navigation("ProductAttributes");
 
                     b.Navigation("ProductBeneficiaries");
 
-                    b.Navigation("ProductUrl")
-                        .IsRequired();
+                    b.Navigation("ProductUrl");
                 });
 
             modelBuilder.Entity("BookWorm_DotNet.Models.ProductType", b =>

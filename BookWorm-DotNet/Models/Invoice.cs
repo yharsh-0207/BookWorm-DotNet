@@ -11,7 +11,7 @@ public partial class Invoice
 
     public DateTime InvoiceDate { get; set; }
 
-    public long CustomerId { get; set; }
+    public long? CustomerId { get; set; }
 
     public double BuyAmount { get; set; }
 
@@ -22,8 +22,4 @@ public partial class Invoice
     public double RentAmount { get; set; }
 
     public string TransactionType { get; set; }
-
-    public Customer Customer { get; set; }
-
-    public ICollection<InvoiceDetail> InvoiceDetails { get; set; }
 }
