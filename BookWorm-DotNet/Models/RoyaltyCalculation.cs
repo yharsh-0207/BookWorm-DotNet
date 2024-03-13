@@ -11,8 +11,6 @@ public partial class RoyaltyCalculation
 
     public long? BeneficiaryId { get; set; }
 
-    public long? InvoiceId { get; set; }
-
     public long? ProductId { get; set; }
 
     public DateTime? RoyaltyCalculationDate { get; set; }

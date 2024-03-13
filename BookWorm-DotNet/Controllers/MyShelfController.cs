@@ -54,7 +54,7 @@ namespace BookWorm_DotNet.Controllers
                 royaltyCalculation.BasePrice = product.Baseprice;
                 royaltyCalculation.TransactionType = myShelf.TransactionType;
                 royaltyCalculation.ProductId = myShelf.BuyId;
-                royaltyCalculation.RoyaltyCalculationDate = myShelf.ProductExpiryDate;
+                royaltyCalculation.RoyaltyCalculationDate = DateTime.Now;
                 royaltyCalculation.SalePrice = product.SalePrice;
                 if (myShelf.PriceAmount != 0)
                 {

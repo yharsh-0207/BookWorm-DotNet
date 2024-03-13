@@ -491,9 +491,6 @@ namespace BookWorm_DotNet.Migrations
                     b.Property<long?>("BeneficiaryId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("InvoiceId")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
